@@ -1,0 +1,29 @@
+﻿
+@using Microsoft.AspNet.Identity
+
+@{
+       string strEmail = ((System.Security.Claims.ClaimsPrincipal)System.Threading.Thread.CurrentPrincipal).Claims.Where(c => c.Type == "Email").Select(c => c.Value).SingleOrDefault();
+}
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("Logoff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+
+                @Html.ActionLink("Добрый день " + ((System.Security.Claims.ClaimsPrincipal)System.Threading.Thread.CurrentPrincipal).Claims.Where(c => c.Type == "UserFio").Select(c => c.Value).SingleOrDefault() + "!", "")
+
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Вход", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}
