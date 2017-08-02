@@ -2,7 +2,15 @@
 @using Microsoft.AspNet.Identity
 
 @{
-       string strEmail = ((System.Security.Claims.ClaimsPrincipal)System.Threading.Thread.CurrentPrincipal).Claims.Where(c => c.Type == "Email").Select(c => c.Value).SingleOrDefault();
+    try
+    {
+        string strEmail = ((System.Security.Claims.ClaimsPrincipal)System.Threading.Thread.CurrentPrincipal).Claims.Where(c => c.Type == "Email").Select(c => c.Value).SingleOrDefault();
+    }
+    catch(Exception ex)
+    {
+        string strError = ex.Message;
+    }
+
 }
 
 @if (Request.IsAuthenticated)
@@ -14,7 +22,15 @@
         <ul class="nav navbar-nav navbar-right">
             <li>
 
-                @Html.ActionLink("Добрый день " + ((System.Security.Claims.ClaimsPrincipal)System.Threading.Thread.CurrentPrincipal).Claims.Where(c => c.Type == "UserFio").Select(c => c.Value).SingleOrDefault() + "!", "")
+        @try
+        {
+              
+            @Html.ActionLink("Добрый день " + ((System.Security.Claims.ClaimsPrincipal)System.Threading.Thread.CurrentPrincipal).Claims.Where(c => c.Type == "UserFio").Select(c => c.Value).SingleOrDefault() + "!", "")
+        }
+        catch(Exception ex)
+        {
+                string strError = ex.Message;
+        }
 
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>

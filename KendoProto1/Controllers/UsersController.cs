@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Newtonsoft.Json;
 using KendoProto1.Models;
 using System.Threading.Tasks;
+using System.Collections;
+using Newtonsoft.Json;
 
 namespace KendoProto1.Controllers
 {
@@ -18,62 +18,95 @@ namespace KendoProto1.Controllers
             return View();
         }
 
-        public async Task<string> GetUsers()
+        public async Task<JsonResult> GetAll(/*int skip, int take*/)
         {
-            List<Users> list = await UsersCrud.GetAll();
-            int page = 1;
-            var data = list;
-            var Data = new
-            {
-                page,
-                total = Math.Ceiling((double)list.Count() / int.MaxValue),
-                records = list.Count(),
-                rows = data
-            };
+            var list = await UsersCrud.GetAll() as IEnumerable<Users>;
 
-            return JsonConvert.SerializeObject(Data);
+            //   list = list.Skip(skip).Take(take);
+
+            return this.Jsonp(list);
+        }
+
+        public ActionResult Add()
+        {
+            List<Users> list = this.DeserializeObject<IEnumerable<Users>>("models") as List<Users>;
+
+            if (list != null)
+            {
+                for (int i = 0; i < list.Count(); i++)
+                {
+                    int Id = UsersCrud.Add(list[i]);
+                    list[i].Id = Id;
+                }
+            }
+            return this.Jsonp(list);
+        }
+
+        public JsonResult Edit()
+        {
+            List<Users> list = this.DeserializeObject<IEnumerable<Users>>("models") as List<Users>;
+
+            if (list != null)
+            {
+                for (int i = 0; i < list.Count(); i++)
+                {
+                     UsersCrud.Edit(list[i]);
+                }
+            }
+            return this.Jsonp(list);
+        }
+
+        public JsonResult Del()
+        {
+            List<Users> list = this.DeserializeObject<IEnumerable<Users>>("models") as List<Users>;
+
+            if (list != null)
+            {
+                for (int i = 0; i < list.Count(); i++)
+                {
+                    UsersCrud.Del(list[i].Id);
+                }
+            }
+            return this.Jsonp(list);
+        }
+
+        public string RoleList2()
+        {
+            List<MyRole> list = new List<MyRole>();
+
+            MyRole admin = new MyRole { name = "Админ" };
+            list.Add(admin);
+
+            MyRole user = new MyRole { name = "Юзер" };
+            list.Add(user);
+
+            MyRole user2 = new MyRole { name = "Юзер-2" };
+            list.Add(user2);
+
+            return JsonConvert.SerializeObject(list);
+        }
+
+        public IEnumerable RoleDrops()
+        {
+            List<MyRole> list = new List<MyRole>();
+
+            MyRole admin = new MyRole {name= "Админ" };
+            list.Add(admin);
+
+            MyRole user = new MyRole { name = "Юзер" };
+            list.Add(user);
+
+            MyRole user2 = new MyRole { name = "Юзер-2" };
+            list.Add(user2);
+
+            IEnumerable<MyRole> list2 = list as IEnumerable<MyRole>;
+            
+             return list2;
         }
 
         [HttpPost]
-        public JsonResult Add(Users model)
-        {
-            try
-            {
-                UsersCrud.Add(model);
-                return Json("Успех!");
-            }
-            catch (Exception ex)
-            {
-                return Json(ex.Message);
-            }
-        }
-
-        [HttpPost]
-        public JsonResult Edit(Users model)
-        {
-            try
-            {
-                UsersCrud.Edit(model);
-                return Json("Успех!");
-            }
-            catch (Exception ex)
-            {
-                return Json(ex.Message);
-            }
-        }
-
-        [HttpPost]
-        public JsonResult Delete(int Id)
-        {
-            try
-            {
-                UsersCrud.Del(Id);
-                return Json("Успех!");
-            }
-            catch (Exception ex)
-            {
-                return Json(ex.Message);
-            }
+        public void Delete(int Id){
+            UsersCrud.Del(Id);
         }
 
         public string RoleList(string SelName, bool IsFilter = false)
@@ -117,5 +150,10 @@ namespace KendoProto1.Controllers
             return result;
         }
 
+    }
+
+    public class MyRole
+    {
+      public  string name { get; set; }
     }
 }

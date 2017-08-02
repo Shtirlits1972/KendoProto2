@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "Персонал";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Персонал</title>
+
+    <script type="text/x-kendo-template" id="btnAdd" name="btnAdd">
+        <a class='k-button k-button-icontext' onclick='CreateNew()'><span class='glyphicon glyphicon-plus'></span> Добавить</a>
+    </script>
+
+    <script type="text/x-kendo-template" id="btnEdit" name="btnEdit">
+        <a class='k-button k-button-icontext' onclick='editSelectedRow()'><span class='glyphicon glyphicon-edit'></span> Изменить</a>
+    </script>
+
+    <script src="~/Scripts/Views/Staff/Index.js"></script>
+
+    <script type="text/x-kendo-template" id="destroy" name="destroy">
+        <a class='k-button k-button-icontext k-grid-delete' onclick='removeSelectedRow()'><span class='k-icon k-i-close'></span>Удалить</a>
+    </script>
+</head>
+<body style="width: 100%;">
+    <br />
+    <br />
+
+
+    @*<button type="button" id="saveSettingGrid" onclick="SaveGridSetting()">Сохранить</button>
+
+    <button type="button" id="loadSettingGrid" onclick="LoadGridSetting()">Загрузить</button>*@
+
+    <br />
+    <div id="example" style="width: 100%;">
+        <div id="grid" style="width: 100%;"></div>
+    </div>
+
+
+</body>
+</html>
+

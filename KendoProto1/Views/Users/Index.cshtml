@@ -1,7 +1,26 @@
-﻿
-@{
-    ViewBag.Title = "Пользователи";
-}
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Пользователи</title>
+</head>
+<body>
 
-<h2>Пользователи</h2>
+    <script src="~/Scripts/Views/Users/Index.js"></script>
+
+    <script type="text/x-kendo-template" id="btnEdit" name="btnEdit">
+        <a class='k-button k-button-icontext' onclick='editSelectedRow()'><span class='glyphicon glyphicon-edit'></span> Изменить</a>
+    </script>
+
+    <script type="text/x-kendo-template" id="destroy" name="destroy">
+        <a class='k-button k-button-icontext k-grid-delete' onclick='removeSelectedRow()'><span class='k-icon k-i-close'></span>Удалить</a>
+    </script>
+
+    <input id="RoleSearch" name="RoleSearch" />
+
+    <div id="example">
+        <div id="grid"></div>
+    </div>
+
+</body>
+</html>
 

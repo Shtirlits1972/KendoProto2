@@ -5,9 +5,41 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Kendo Propto</title>
+    <title>KendoProto1 - 2017</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2017.1.223/kendo.common-bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2017.1.223/kendo.mobile.all.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2017.1.223/kendo.dataviz.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2017.1.223/kendo.bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2017.1.223/kendo.dataviz.bootstrap.min.css")" rel="stylesheet" type="text/css" />
+
+    <link href="@Url.Content("~/Content/kendo/2017.1.223/kendo.common.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2017.1.223/kendo.default.min.css")" rel="stylesheet" type="text/css" />
+
+    @*<link href="@Url.Content("~/Content/kendo/2017.1.223/kendo.flat.min.css")" rel="stylesheet" type="text/css" />*@
+
+
+    <script src="@Url.Content("~/Scripts/kendo/2017.1.223/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2017.1.223/angular.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2017.1.223/jszip.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2017.1.223/kendo.all.min.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/kendo.culture.ru-RU.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo.messages.ru-RU.js")"></script>
+
+    <script type="text/javascript">
+
+        $(function () {
+            kendo.culture('ru-RU');
+        });
+
+    </script>
+
+
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -29,6 +61,8 @@
                             {
                                 <li>@Html.ActionLink("Пользователи", "Index", "Users")</li>
                             }
+                            <li>@Html.ActionLink("Страны", "Index", "Country")</li>
+                            <li>@Html.ActionLink("Персонал", "Index", "Staff")</li>
                         }
                        </ul>
                     @Html.Partial("_LoginPartial")
@@ -36,16 +70,13 @@
             </div>
     </div>
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Kendo Propto</p>
-        </footer>
-    </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    <div class="container body-content" style="max-width:100%;">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - KendoProto1</p>
+            </footer>
+        </div>
+        @RenderSection("scripts", required: false)
 </body>
 </html>

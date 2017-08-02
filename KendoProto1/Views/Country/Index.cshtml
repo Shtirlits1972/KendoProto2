@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Страны</title>
+
+    <script type="text/x-kendo-template" id="btnEdit" name="btnEdit">
+            <a class='k-button k-button-icontext' onclick='editSelectedRow()'><span class='glyphicon glyphicon-edit'></span> Изменить</a>
+        </script>
+
+    <script src="~/Scripts/Views/Country/table.js"></script>
+
+    <script type="text/x-kendo-template" id="destroy" name="destroy">
+        <a class='k-button k-button-icontext k-grid-delete' onclick='removeSelectedRow()'><span class='k-icon k-i-close'></span>Удалить</a>
+    </script>
+</head>
+<body>
+    <br/>
+    <br />
+    <br />
+
+    <button type="button" id="saveSettingGrid" onclick="SaveGridSetting()">Сохранить</button>
+
+    <button type="button" id="loadSettingGrid" onclick="LoadGridSetting()">Загрузить</button>
+
+    <div id="example">
+        <div id="grid"></div>
+    </div>
+
+
+</body>
+</html>

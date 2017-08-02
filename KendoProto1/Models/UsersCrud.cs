@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using KendoProto1.Models;
-using System.Web;
-using System.Web.Mvc;
 
 namespace KendoProto1.Models
 {
@@ -94,7 +89,7 @@ namespace KendoProto1.Models
 
             return (Users)DataSql.GetAll("UsersById", param)[0];
         }
-        public static void Add(Users user)
+        public static int Add(Users user)
         {
             try
             {
@@ -106,12 +101,19 @@ namespace KendoProto1.Models
                 new SqlParameter("UserFio", user.UserFio),
                 new SqlParameter("Banned", user.Banned)};
 
-                DataSql.ScalarCommand("UsersIns ", param);
+               object ob = DataSql.ScalarCommand("UsersAdd ", param);
+
+                int Id = 0;
+
+                int.TryParse(ob.ToString(), out Id);
+
+                return Id;
 
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                // throw new Exception(ex.Message);
+                return 0;
             }
         }
 
